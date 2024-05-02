@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compliment Me</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #f5f5f5;
+        }
+        .input-field {
+            background-color: #333;
+            border: 2px solid #555;
+            color: #fff;
+        }
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            opacity: 0.9;
+        }
+        .button:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center h-screen">
+    <div class="w-full max-w-lg p-5">
+        <h1 class="text-3xl font-bold mb-6 text-center">compliment me 🥹</h1>
+        <form action="#" method="POST">
+            <div class="mb-4">
+                <input type="text" name="name" placeholder="name" class="input-field w-full p-2 rounded">
+            </div>
+            <div class="mb-4">
+                <input type="text" name="feeling" placeholder="how are you feeling?" class="input-field w-full p-2 rounded">
+            </div>
+            <div class="mb-6">
+                <textarea name="rant" rows="4" placeholder="you can rant here if you want to" class="input-field w-full p-2 rounded"></textarea>
+            </div>
+            <button type="submit" class="button w-full p-3 rounded">compliment me</button>
+        </form>
+        <p class="text-center mt-6">if you are a cutie, buy me a coffee ☕</p>
+    </div>
+</body>
+</html>
