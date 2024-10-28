@@ -25,24 +25,77 @@
         .button:hover {
             opacity: 1;
         }
+        .progress {
+            width: 100%;
+            height: 5px;
+            background-color: #555;
+            display: none; /* Hidden by default */
+            margin-top: 10px; /* Added margin for space */
+        }
+        .progress-bar {
+            height: 100%;
+            width: 0;
+            background-color: #4CAF50;
+            transition: width 0.4s ease; /* Smooth transition */
+        }
     </style>
 </head>
 <body class="flex items-center justify-center h-screen">
     <div class="w-full max-w-lg p-5">
         <h1 class="text-3xl font-bold mb-6 text-center">compliment me 🥹</h1>
-        <form action="#" method="POST">
+        <form id="complimentForm" action="#" method="POST">
             <div class="mb-4">
-                <input type="text" name="name" placeholder="name" class="input-field w-full p-2 rounded">
+                <input type="text" name="name" placeholder="name" class="input-field w-full p-2 rounded" required>
             </div>
             <div class="mb-4">
-                <input type="text" name="feeling" placeholder="how are you feeling?" class="input-field w-full p-2 rounded">
+                <input type="text" name="feeling" placeholder="how are you feeling?" class="input-field w-full p-2 rounded" required>
             </div>
             <div class="mb-6">
-                <textarea name="rant" rows="4" placeholder="you can rant here if you want to" class="input-field w-full p-2 rounded"></textarea>
+                <textarea name="rant" rows="4" placeholder="you can rant here if you want to" class="input-field w-full p-2 rounded" required></textarea>
             </div>
             <button type="submit" class="button w-full p-3 rounded">compliment me</button>
+            <div class="progress" id="progress">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
         </form>
         <p class="text-center mt-6">if you are a cutie, buy me a coffee ☕</p>
     </div>
+    <script>
+        document.getElementById('complimentForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+            const progress = document.getElementById('progress');
+            const progressBar = document.getElementById('progressBar');
+
+            progress.style.display = 'block'; // Show the progress bar
+
+            // Simulate progress
+            let width = 0;
+            const interval = setInterval(() => {
+                if (width >= 100) {
+                    clearInterval(interval);
+                } else {
+                    width++;
+                    progressBar.style.width = width + '%';
+                }
+            }, 10); // Adjust speed of progress
+
+            const formData = new FormData(this); // Get form data
+
+            fetch('/', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                progress.style.display = 'none'; // Hide the progress bar
+                document.body.innerHTML = data; // Replace the body with the response
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                progress.style.display = 'none'; // Hide the progress bar on error
+                alert('An error occurred. Please try again.'); // Alert the user
+            });
+        });
+    </script>
 </body>
 </html>
