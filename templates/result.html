@@ -28,17 +28,14 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Soft shadow for 3D effect */
-            width: 50%; /* Adjust width as needed */
-            max-width: 600px; /* Maximum width */
+            width: 80%; /* Increased width */
+            max-width: 800px; /* Maximum width */
             text-align: left; /* Align text to the left */
         }
         .compliment-text {
             font-size: 1.0em; /* Larger text size for emphasis */
             font-weight: normal; /* Make the compliment text bold */
             line-height: 1.40; /* Adjust line spacing for better readability */
-        }
-        .text-sm {
-            font-size: 0.8em; /* Smaller text size for the heading */
         }
         .button {
             background-color: #4CAF50; /* Green background for the button */
@@ -58,6 +55,18 @@
         .button:hover {
             opacity: 1; /* Full opacity on hover */
         }
+        .notification {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 128, 0, 0.8); /* Green background */
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            z-index: 1000; /* Ensure it appears above other elements */
+        }
         footer {
             background-color: #333; /* Dark footer background */
             color: #fff; /* White text in footer */
@@ -71,12 +80,32 @@
 </head>
 <body>
     <div class="center-container">
-        <div class="compliment-box">
+        <div class="compliment-box" id="complimentBox">
             <p class="compliment-text">{{ compliment }}</p> <!-- Updated class for styling -->
         </div>
-        <a href="#" class="button">
+        <a href="#" class="button" id="screenshotButton">
             liked it? take a screenshot & share it with your friends 🫶
         </a>
+        <div class="notification" id="notification">Screenshot taken!</div> <!-- Notification element -->
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <script>
+        document.getElementById('screenshotButton').addEventListener('click', function() {
+            html2canvas(document.getElementById("complimentBox")).then(canvas => {
+                const link = document.createElement('a');
+                link.href = canvas.toDataURL();
+                link.download = 'compliment.png';
+                link.click();
+
+                // Show notification
+                const notification = document.getElementById('notification');
+                notification.style.display = 'block'; // Show the notification
+                setTimeout(() => {
+                    notification.style.display = 'none'; // Hide after 2 seconds
+                }, 2000);
+            });
+        });
+    </script>
 </body>
 </html>
